@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 rounded-4">
+                
+                <h2 class="text-center mb-4 fw-bold text-primary">
+                     Guess the Lucky Number
+                </h2>
+
+                <form action="#">
+                    <div class="text-center form-group mb-3">
+                        <label class="form-label fw-semibold">Hope you win!</label>
+                        <input 
+                            type="number" 
+                            class="form-control form-control-lg text-center"
+                            placeholder="Enter your lucky number between (0 to 25)"
+                            id="input">
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-success btn-lg px-5" type="button" onclick="checkluck()">
+                            Check Now
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>{{lucky_number}}</p>
+
+<script>
+    var lucky_number = "{{lucky_number}}"
+    var count = 3
+    console.log(lucky_number)
+    function checkluck(){
+
+            var input = document.getElementById('input')
+            if (input.value == "") {alert ("Input cannot be blank !!")}
+            count -= 1
+
+            if (count <= 0){
+                alert(`You have exhausted the counts \n Your Lucky Number is ${lucky_number}`)
+                input.disabled = true
+                return
+            }
+            if (lucky_number == input.value){
+                alert("Wow !! You Won.. ")
+                input.disabled = true;
+
+                return
+            }
+            else if(lucky_number > input.value){
+                alert(`Sorry , Your guess is too small \n Try Again ${count} times !!`)
+                input.value = ""
+                return
+            }
+            else if(lucky_number < input.value){
+                alert(`Sorry , Your guess is too big \n Try Again ${count} times !!`)
+                input.value = ""
+                return
+            }
+    }
+</script>
+{% endblock %}
